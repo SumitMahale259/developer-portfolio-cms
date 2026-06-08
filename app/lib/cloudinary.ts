@@ -37,10 +37,13 @@ function uploadToCloudinary(
 }
 
 function deleteFromCloudinary(
-    publicId: String,
+    publicId: string,
 ){
     return new Promise((resolve, reject) => {
-        cloudinary.uploader.destroy(publicId)
+        cloudinary.uploader.destroy(publicId, (error, result) => {
+            if (error) reject(error);
+            else resolve(result);
+        })
     });
 }
 
