@@ -11,9 +11,14 @@ const SUPPORTED_FORMATS_IMAGE = [
   "image/webp",
 ];
 
+const FileListSchema = z.custom<FileList>(
+  (value) =>
+  typeof window === "undefined" || value instanceof FileList,
+  "Expected FileList"
+);  
+
 export const ProjectClientSchema = ProjectSchema.extend({
-  image: z
-    .instanceof(FileList)
+  image: FileListSchema
     .refine((files) => files.length > 0, "Please select an image")
     .transform((files) => files[0])
     .refine(
@@ -27,8 +32,7 @@ export const ProjectClientSchema = ProjectSchema.extend({
 });
 
 export const ProjectEditClientSchema = ProjectSchema.extend({
-  image: z
-    .instanceof(FileList)
+  image: FileListSchema
     .optional()
     .transform((files) => {
       if (!files || files.length === 0) return undefined;
