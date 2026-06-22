@@ -1,5 +1,6 @@
 "use client";
 
+import { MoonIcon, SunIcon } from "@heroicons/react/24/outline";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 
@@ -25,9 +26,11 @@ export default function ThemeToggle() {
             onClick={() =>
                 setTheme(resolvedTheme  === "dark" ? "light" : "dark")
             }
-            className="rounded border px-3 py-2"
+            // className="rounded border px-3 py-2"
+            className="rounded-full p-2 transition hover:bg-gray-100 dark:hover:bg-slate-800 w-10"
         >
-            {resolvedTheme  === "dark" ? "☼" : "☾"}
+            {/* {resolvedTheme  === "dark" ? "☼" : "☾"} */}
+            {resolvedTheme  === "dark" ? <SunIcon/> : <MoonIcon/>}
         </button>
     );
 }

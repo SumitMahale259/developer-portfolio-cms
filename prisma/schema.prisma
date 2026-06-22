@@ -12,6 +12,19 @@ datasource db {
   provider = "postgresql"
 }
 
+model User {
+  id          String   @id @default(cuid())
+  fullName    String
+  email       String   @unique
+  password    String
+  
+  resetToken  String?
+  resetExpiry DateTime?
+
+  forgotPasswordAttempts Int      @default(0)
+  forgotPasswordFirstAttempt DateTime?
+}
+
 model Project {
   id          String   @id @default(cuid())
   title       String

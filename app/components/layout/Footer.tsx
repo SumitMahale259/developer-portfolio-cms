@@ -1,10 +1,189 @@
+import Link from "next/link";
+import { ArrowUpRightIcon, EnvelopeIcon, GifIcon, LinkIcon } from "@heroicons/react/24/outline";
+
 export default function Footer() {
-    return(
-        <footer className="border-t py-6">
-            <p className="text-center text-sm">
-                © {new Date().getFullYear()} Sumit.
-                All rights reserved.
+  return (
+    <footer className="border-t border-gray-200 dark:border-slate-800">
+      <div className="mx-auto max-w-7xl px-6 py-12">
+        <div className="flex flex-col items-center text-center gap-10 md:flex-row md:items-center md:justify-between md:text-left">
+          {/* Brand */}
+          <h2 className="text-2xl font-bold tracking-tight">
+            Sumit
+            <span className="text-blue-600">.</span>
+          </h2>
+
+          {/* Description */}
+          <p className="mt-4 max-w-md text-sm leading-6 text-gray-600 dark:text-gray-400">
+            {/* Full Stack Developer building modern web applications with Next.js, TypeScript, Prisma and PostgreSQL. */}
+            Full Stack Developer crafting scalable, performant, and user-focused web applications.
+          </p>
+
+          {/* Resume */}
+          {/* <Link
+            href="/resume.pdf"
+            target="_blank"
+            className="mt-6 inline-flex items-center gap-2 rounded-full bg-blue-600 px-5 py-2 text-sm font-medium text-white transition-all hover:scale-105 hover:bg-blue-700"
+          >
+            Resume
+            <ArrowUpRightIcon className="h-4 w-4" />
+          </Link> */}
+
+          {/* Socials */}
+          <div className="mt-8 flex items-center gap-4">
+            <a
+              href="https://github.com/yourusername"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="GitHub"
+              className="rounded-full p-3 transition hover:bg-gray-100 dark:hover:bg-slate-800"
+            >
+              <GifIcon className="h-5 w-5" />
+            </a>
+
+            <a
+              href="https://linkedin.com/in/yourusername"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="LinkedIn"
+              className="rounded-full p-3 transition hover:bg-gray-100 dark:hover:bg-slate-800"
+            >
+              <LinkIcon className="h-5 w-5" />
+            </a>
+
+            <a
+              href="mailto:your@email.com"
+              aria-label="Email"
+              className="rounded-full p-3 transition hover:bg-gray-100 dark:hover:bg-slate-800"
+            >
+              <EnvelopeIcon className="h-5 w-5" />
+            </a>
+          </div>
+
+          
+        </div>
+
+{/* Copyright */}
+          <div className="mt-8 w-full border-t border-gray-200 pt-6 dark:border-slate-800 text-center">
+            <p className="text-sm text-gray-500">
+              © {new Date().getFullYear()} Sumit. All rights reserved.
             </p>
-        </footer>
-    )
+          </div>      </div>
+    </footer>
+  );
 }
+
+
+
+// import { EnvelopeIcon, GifIcon, LinkIcon } from "@heroicons/react/24/outline";
+// import Link from "next/link";
+// // import {
+// //   Github,
+// //   Linkedin,
+// //   Mail,
+// // } from "lucide-react";
+
+// const navLinks = [
+//   { href: "/", label: "Home" },
+//   { href: "/projects", label: "Projects" },
+//   { href: "/blog", label: "Blog" },
+//   { href: "/about", label: "About" },
+//   { href: "/contact", label: "Contact" },
+// ];
+
+// export default function Footer() {
+//   return (
+//     <footer className="border-t border-gray-200 dark:border-slate-800">
+//       <div className="mx-auto max-w-7xl px-6 py-12">
+//         <div className="grid gap-10 md:grid-cols-3">
+//           {/* Brand */}
+//           <div>
+//             <h2 className="text-2xl font-bold">
+//               Sumit
+//               <span className="text-blue-600">.</span>
+//             </h2>
+
+//             <p className="mt-4 text-sm text-gray-600 dark:text-gray-400">
+//               Building modern web experiences with 
+//               Next.js, TypeScript, Prisma and PostgreSQL.
+//             </p>
+//           </div>
+
+//           {/* Navigation */}
+//           {/* <div>
+//             <h3 className="mb-4 font-semibold">
+//               Navigation
+//             </h3>
+
+//             <ul className="space-y-3">
+//               {navLinks.map((link) => (
+//                 <li key={link.href}>
+//                   <Link
+//                     href={link.href}
+//                     className="text-sm text-gray-600 transition hover:text-blue-600 dark:text-gray-400"
+//                   >
+//                     {link.label}
+//                   </Link>
+//                 </li>
+//               ))}
+//             </ul>
+//           </div> */}
+
+//           {/* Socials */}
+//           <div>
+//             <h3 className="mb-4 font-semibold">
+//               Connect
+//             </h3>
+
+//             <div className="flex gap-4">
+//               <a
+//                 href="https://github.com/yourusername"
+//                 target="_blank"
+//                 rel="noopener noreferrer"
+//                 className="rounded-full p-2 transition hover:bg-gray-100 dark:hover:bg-slate-800"
+//               >
+//                 <GifIcon className="h-5 w-5" />
+//               </a>
+
+//               <a
+//                 href="https://linkedin.com/in/yourusername"
+//                 target="_blank"
+//                 rel="noopener noreferrer"
+//                 className="rounded-full p-2 transition hover:bg-gray-100 dark:hover:bg-slate-800"
+//               >
+//                 <LinkIcon className="h-5 w-5" />
+//               </a>
+
+//               <a
+//                 href="mailto:your@email.com"
+//                 className="rounded-full p-2 transition hover:bg-gray-100 dark:hover:bg-slate-800"
+//               >
+//                 <EnvelopeIcon className="h-5 w-5" />
+//               </a>
+//             </div>
+//           </div>
+//         </div>
+
+//         {/* Bottom Bar */}
+//         <div className="mt-10 border-t border-gray-200 pt-6 dark:border-slate-800">
+//           <p className="text-center text-sm text-gray-500">
+//             © {new Date().getFullYear()} Sumit.
+//             All rights reserved.
+//           </p>
+//         </div>
+//       </div>
+//     </footer>
+//   );
+// }
+
+
+
+// export default function Footer() {
+//     return(
+//         <footer className="border-t py-6">
+//             <p className="text-center text-sm">
+//                 © {new Date().getFullYear()} Sumit.
+//                 All rights reserved.
+//             </p>
+//         </footer>
+//     )
+// }

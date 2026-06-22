@@ -1,3 +1,4 @@
+import "server-only";
 import { v2 as cloudinary } from "cloudinary";
 import "dotenv/config";
 
@@ -14,12 +15,18 @@ cloudinary.config({
 
 function uploadToCloudinary(
     buffer: Buffer,
-    folder: string
+    folder: string,
+    existingPublicId?: string,
 ): Promise<UploadedImage> {
     return new Promise((resolve, reject) => {
         cloudinary.uploader.upload_stream(
             {
                 folder,
+                ...(existingPublicId && {
+                    public_id: existingPublicId,
+                    overwrite: true,
+                    invalidate: true,
+                }),
             },
             (error, result) => {
                 if (error) {
@@ -47,13 +54,4 @@ function deleteFromCloudinary(
     });
 }
 
-// async function deleteFromCloudinary(publicId, resource_type = "image") {
-//     return new Promise((resolve, reject) => {
-//         cloudinary.uploader.destroy(publicId, {resource_type}, (error, result) => {
-//         if (error) reject(error);
-//         else resolve(result);
-//         });
-//     });
-// }
-
-export { uploadToCloudinary };
+export { uploadToCloudinary, deleteFromCloudinary };
