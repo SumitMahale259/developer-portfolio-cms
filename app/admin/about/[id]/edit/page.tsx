@@ -1,4 +1,4 @@
-export default function CreateBlog() {
+export default function EditAbout() {
     return (
         <div>
             
