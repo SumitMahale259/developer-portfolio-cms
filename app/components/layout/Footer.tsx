@@ -7,10 +7,12 @@ export default function Footer() {
       <div className="mx-auto max-w-7xl px-6 py-12">
         <div className="flex flex-col items-center text-center gap-10 md:flex-row md:items-center md:justify-between md:text-left">
           {/* Brand */}
-          <h2 className="text-2xl font-bold tracking-tight">
-            Sumit
-            <span className="text-blue-600">.</span>
-          </h2>
+          <Link href="/">
+            <h2 className="text-2xl font-bold tracking-tight">
+              Sumit
+              <span className="text-blue-600">.</span>
+            </h2>
+          </Link>
 
           {/* Description */}
           <p className="mt-4 max-w-md text-sm leading-6 text-gray-600 dark:text-gray-400">
