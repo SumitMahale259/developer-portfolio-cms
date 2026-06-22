@@ -4,7 +4,7 @@ import { fetchProjects } from "@/app/lib/data";
 import Image from "next/image";
 import Link from "next/link";
 
-export default async function AdminProjectsPage() {
+export default async function AdminProjects() {
     const projects = await fetchProjects();
     return (
         <div className="text-center">

@@ -1,7 +1,7 @@
-export default function About() {
+export default function AdminAbout() {
     return (
-        <div>
-            
+        <div className="text-center">
+            <p>Admin About Page</p>
         </div>
     )
 }

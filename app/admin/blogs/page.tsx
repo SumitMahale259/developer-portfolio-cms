@@ -1,7 +1,7 @@
-export default function Page() {
+export default function AdminBlogs() {
     return (
-        <div>
-            
+        <div className="text-center">
+            <p>Admin Blogs Page</p>
         </div>
     )
 }

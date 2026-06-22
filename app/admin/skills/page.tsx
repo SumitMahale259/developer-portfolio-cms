@@ -1,7 +1,7 @@
-export default function Skills() {
+export default function AdminSkills() {
     return (
-        <div>
-            
+        <div className="text-center">
+            <p>Admin Skills Page</p>
         </div>
     )
 }
