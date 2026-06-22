@@ -1,4 +1,5 @@
 import Link from "next/link";
+import TypingText from "../TypingText";
 
 export default function HeroSection() {
     return (
@@ -11,11 +12,18 @@ export default function HeroSection() {
                     Available for opportunities
                 </span>
 
-                <h1 className="mt-6 text-5xl font-black tracking-tight md:text-7xl">
-                    Full Stack
-                    <br />
-                    Developer
+                <h1 className="mt-6 text-3xl font-black md:text-5xl">
+                    Hi, I'm Sumit
                 </h1>
+
+                <div className="min-h-[144px] md:min-w-[616px]">
+                    <TypingText/>
+                </div>
+                {/* <h1 className="mt-6 text-5xl font-black tracking-tight md:text-7xl">
+                    Full Stack
+                    <br/>
+                    Developer
+                </h1> */}
 
                 <p className="mt-6 max-w-xl text-lg text-gray-600 dark:text-gray-400">
                     Building modern web applications with
