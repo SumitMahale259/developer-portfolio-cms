@@ -30,3 +30,20 @@ export async function fetchProjectById(id: string) {
         throw new Error("Failed to fetch project.")
     }
 }
+
+export async function fetchBasicInfo() {
+    try {
+        const basicInfo = await prisma.about.findFirst({
+            select: {
+                fullName: true,
+                summary: true,
+                roles: true,
+                profileImg: true,
+            },
+        })
+        return basicInfo;
+    } catch (error) {
+        console.error("Database error: ", error);
+        throw new Error("Failed to fetch basic information.");
+    }
+}

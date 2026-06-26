@@ -1,6 +1,7 @@
 "use client";
 
 import Button from "@/app/components/ui/Button";
+import Input from "@/app/components/ui/Input";
 import { resetPassword } from "@/app/lib/actions/auth-action";
 import { ResetPasswordData, ResetPasswordSchema } from "@/app/lib/validations/reset-password-schema";
 import { ArrowRightIcon, KeyIcon } from "@heroicons/react/24/outline";
@@ -44,7 +45,7 @@ export default function ResetPasswordForm({token}: {token: string}) {
                             New Password
                         </label>
                         <div className="relative">
-                            <input
+                            <Input
                                 className="peer block w-full rounded-md border border-gray-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500"
                                 id="password"
                                 type="password"
@@ -70,7 +71,7 @@ export default function ResetPasswordForm({token}: {token: string}) {
                             Confirm Password
                         </label>
                         <div className="relative">
-                            <input
+                            <Input
                                 className="peer block w-full rounded-md border border-gray-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500"
                                 id="confirmPassword"
                                 type="password"

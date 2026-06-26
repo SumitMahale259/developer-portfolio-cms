@@ -1,7 +1,7 @@
 import { logout } from "@/app/lib/actions/auth-action";
-import { signOut } from "@/auth";
 import { PowerIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
+import ThemeToggle from "../../layout/ThemeToggle";
 
 export default function Sidebar() {
     return (
@@ -13,6 +13,7 @@ export default function Sidebar() {
                 <Link href="/admin/skills">Skills</Link>
                 <Link href="/admin/about">About</Link>
                 <div className="hidden h-auto w-full grow rounded-md bg-gray-50 md:block"></div>
+                <ThemeToggle/>
                 <form action={logout}>
                     <button className="flex h-[48px] grow items-center justify-center gap-2 rounded-md p-3 text-sm cursor-pointer font-medium md:flex-none md:justify-start md:p-2 md:px-3">
                         <PowerIcon className="w-6" />

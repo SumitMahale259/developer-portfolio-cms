@@ -6,6 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { createProject } from "@/app/lib/actions/project-action";
 import { ProjectClientFormInput, ProjectClientFormOutput, ProjectClientSchema } from "@/app/lib/client-side-validations/project-client-schema";
 import { useRouter } from "next/navigation";
+import Input from "@/app/components/ui/Input";
 
 export default function CreateProjectForm() {
     const router = useRouter();
@@ -55,43 +56,43 @@ export default function CreateProjectForm() {
     return (
         <div className="w-sm">
             <form className="flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
-                <input className="border p-2" type="text" placeholder="Title" {...register("title")}/>
+                <Input type="text" placeholder="Title" {...register("title")}/>
                 <div id="customer-error" aria-live="polite" aria-atomic="true">
                     {errors.title && (
-                        <p className="text-red-500">
+                        <p className="-mt-2 text-sm text-red-500">
                             {errors.title.message}
                         </p>
                     )}
                 </div>
 
-                <input className="border p-2" type="text" placeholder="Slug" {...register("slug")}/>
+                <Input type="text" placeholder="Slug" {...register("slug")}/>
                 <div id="customer-error" aria-live="polite" aria-atomic="true">
                     {errors.slug && (
-                        <p className="text-red-500">
+                        <p className="-mt-2 text-sm text-red-500">
                             {errors.slug.message}
                         </p>
                     )}
                 </div>
 
-                <textarea className="border p-2" placeholder="Description" {...register("description")}/>
+                <textarea className="rounded-md border p-2" placeholder="Description" {...register("description")}/>
                 <div id="customer-error" aria-live="polite" aria-atomic="true">
                     {errors.description && (
-                        <p className="text-red-500">
+                        <p className="-mt-2 text-sm text-red-500">
                             {errors.description.message}
                         </p>
                     )}
                 </div>
 
-                <input className="border p-2" type="url" placeholder="Github Url" {...register("githubUrl")}/>
+                <Input type="url" placeholder="Github Url" {...register("githubUrl")}/>
                 <div id="customer-error" aria-live="polite" aria-atomic="true">
                     {errors.githubUrl && (
-                        <p className="text-red-500">
+                        <p className="-mt-2 text-sm text-red-500">
                             {errors.githubUrl.message}
                         </p>
                     )}
                 </div>
 
-                <input className="border p-2" type="url" placeholder="Live Url" {...register("liveUrl")}/>
+                <Input type="url" placeholder="Live Url" {...register("liveUrl")}/>
                 <div id="customer-error" aria-live="polite" aria-atomic="true">
                     {errors.liveUrl && (
                         <p className="-mt-2 text-sm text-red-500">
@@ -100,7 +101,7 @@ export default function CreateProjectForm() {
                     )}
                 </div>
 
-                <input className="border p-2" type="file" accept="image/*" placeholder="Upload Image" {...register("image")}/>
+                <Input type="file" accept="image/*" placeholder="Upload Image" {...register("image")}/>
                 <div id="customer-error" aria-live="polite" aria-atomic="true">
                     {errors.image && (
                         <p className="-mt-2 text-sm text-red-500">
@@ -111,7 +112,7 @@ export default function CreateProjectForm() {
 
                 <div>
                     <label className="me-4">
-                        <input
+                        <Input
                             className="me-2"
                             type="radio"
                             value="true"
@@ -121,7 +122,7 @@ export default function CreateProjectForm() {
                     </label>
 
                     <label>
-                        <input
+                        <Input
                             className="me-2"
                             type="radio"
                             value="false" 

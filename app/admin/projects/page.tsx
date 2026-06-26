@@ -16,7 +16,7 @@ export default async function AdminProjects() {
                 {projects.map((curProj) =>(
                     <div key={curProj.id} className="text-center rounded border p-2 flex-col gap-5">
                         {curProj.projectImg && (
-                            <Image src={curProj.projectImg.imageUrl} width={200} height={100} alt={curProj.title}/>
+                            <Image src={curProj.projectImg.imageUrl} width={200} height={100} alt={`${curProj.title}'s image`}/>
                         )}
                         <p>{curProj.title}</p>
                         <p>{curProj.description}</p>

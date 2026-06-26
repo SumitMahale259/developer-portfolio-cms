@@ -175,6 +175,9 @@ export async function updateProject(id: string, formData: FormData) {
 
     const bytes = await image.arrayBuffer();
     const buffer = Buffer.from(bytes);
+    if (project?.projectImg?.cloudinaryPublicId) {
+        await deleteFromCloudinary(project.projectImg.cloudinaryPublicId);
+    }
 
     try {
         const uploaded = await uploadToCloudinary(buffer, "developer-portfolio/projects/images", project?.projectImg?.cloudinaryPublicId);

@@ -61,13 +61,13 @@ const words = [
   "Next.js Developer",
 ];
 
-export default function TypingText() {
+export default function TypingText({roles}: {roles: string[]}) {
   const [wordIndex, setWordIndex] = useState(0);
   const [displayText, setDisplayText] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
 
   useEffect(() => {
-    const currentWord = words[wordIndex];
+    const currentWord = roles[wordIndex];
 
     let timeout: NodeJS.Timeout;
 
@@ -79,6 +79,7 @@ export default function TypingText() {
           );
         }, 100);
       } else {
+        if (roles.length === 1) return;
         timeout = setTimeout(() => {
           setIsDeleting(true);
         }, 1500);
@@ -93,7 +94,7 @@ export default function TypingText() {
       } else {
         setIsDeleting(false);
         setWordIndex(
-          (prev) => (prev + 1) % words.length
+          (prev) => (prev + 1) % roles.length
         );
       }
     }

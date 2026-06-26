@@ -5,6 +5,7 @@ import { ArrowRightIcon, AtSymbolIcon, ExclamationCircleIcon } from "@heroicons/
 import { useActionState } from "react";
 import Button from "../../../ui/Button";
 import Link from "next/link";
+import Input from "@/app/components/ui/Input";
 
 export default function ForgotPasswordForm() {
     const [state, formAction, isPending] = useActionState(
@@ -27,7 +28,7 @@ export default function ForgotPasswordForm() {
                             Email
                         </label>
                         <div className="relative">
-                            <input
+                            <Input
                                 className="peer block w-full rounded-md border border-gray-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500"
                                 id="email"
                                 type="email"

@@ -1,6 +1,7 @@
 "use client";
 
 import Button from "@/app/components/ui/Button";
+import Input from "@/app/components/ui/Input";
 import { Prisma } from "@/app/generated/prisma/client";
 import { updateProject } from "@/app/lib/actions/project-action";
 import { ProjectClientEditFormInput, ProjectClientEditFormOutput, ProjectEditClientSchema } from "@/app/lib/client-side-validations/project-client-schema";
@@ -67,63 +68,59 @@ export default function EditProjectForm({ project }: { project: ProjectWithImage
     return (
         <div className="w-sm">
             <form className="flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
-                <input
-                    className="border p-2"
+                <Input
                     type="text"
                     placeholder="Title"
                     {...register("title")}
                 />
                 <div id="customer-error" aria-live="polite" aria-atomic="true">
                     {errors.title && (
-                        <p className="text-red-500">
+                        <p className="-mt-2 text-sm text-red-500">
                             {errors.title.message}
                         </p>
                     )}
                 </div>
 
-                <input
-                    className="border p-2"
+                <Input
                     type="text"
                     placeholder="Slug"
                     {...register("slug")}
                 />
                 <div id="customer-error" aria-live="polite" aria-atomic="true">
                     {errors.slug && (
-                        <p className="text-red-500">
+                        <p className="-mt-2 text-sm text-red-500">
                             {errors.slug.message}
                         </p>
                     )}
                 </div>
 
                 <textarea
-                    className="border p-2"
+                    className="rounded-md border p-2"
                     placeholder="Description"
                     {...register("description")}
                 />
                 <div id="customer-error" aria-live="polite" aria-atomic="true">
                     {errors.description && (
-                        <p className="text-red-500">
+                        <p className="-mt-2 text-sm text-red-500">
                             {errors.description.message}
                         </p>
                     )}
                 </div>
 
-                <input
-                    className="border p-2"
+                <Input
                     type="url"
                     placeholder="Github Url"
                     {...register("githubUrl")}
                 />
                 <div id="customer-error" aria-live="polite" aria-atomic="true">
                     {errors.githubUrl && (
-                        <p className="text-red-500">
+                        <p className="-mt-2 text-sm text-red-500">
                             {errors.githubUrl.message}
                         </p>
                     )}
                 </div>
 
-                <input
-                    className="border p-2"
+                <Input
                     type="url"
                     placeholder="Live Url"
                     {...register("liveUrl")}
@@ -137,11 +134,10 @@ export default function EditProjectForm({ project }: { project: ProjectWithImage
                 </div>
 
                 {project.projectImg && (
-                    <Image src={project.projectImg.imageUrl} width={200} height={100} alt={project.title}/>
+                    <Image src={project.projectImg.imageUrl} width={200} height={100} alt={`${project.title}'s image`}/>
                 )}
                 <p>Current image: {project.projectImg?.imageName}</p>
-                <input
-                    className="border p-2"
+                <Input
                     type="file"
                     accept="image/*"
                     placeholder="Upload Image"
@@ -157,7 +153,7 @@ export default function EditProjectForm({ project }: { project: ProjectWithImage
 
                 <div>
                     <label className="me-4">
-                        <input
+                        <Input
                             className="me-2"
                             type="radio"
                             value="true"
@@ -167,7 +163,7 @@ export default function EditProjectForm({ project }: { project: ProjectWithImage
                     </label>
 
                     <label>
-                        <input
+                        <Input
                             className="me-2"
                             type="radio"
                             value="false"

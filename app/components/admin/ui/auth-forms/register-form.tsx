@@ -8,6 +8,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { UserFormData, UserSchema } from "@/app/lib/validations/user-schema";
 import Link from "next/link";
 import { useState } from "react";
+import Input from "@/app/components/ui/Input";
 
 export default function RegisterForm() {
     const [serverMessage, setServerMessage] = useState({
@@ -55,7 +56,7 @@ export default function RegisterForm() {
                             Secret Key
                         </label>
                         <div className="relative">
-                            <input
+                            <Input
                                 className="peer block w-full rounded-md border border-gray-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500"
                                 id="secretKey"
                                 type="password"
@@ -81,7 +82,7 @@ export default function RegisterForm() {
                             Full Name
                         </label>
                         <div className="relative">
-                            <input
+                            <Input
                                 className="peer block w-full rounded-md border border-gray-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500"
                                 id="fullName"
                                 type="text"
@@ -107,7 +108,7 @@ export default function RegisterForm() {
                             Email
                         </label>
                         <div className="relative">
-                            <input
+                            <Input
                                 className="peer block w-full rounded-md border border-gray-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500"
                                 id="email"
                                 type="email"
@@ -133,7 +134,7 @@ export default function RegisterForm() {
                             Password
                         </label>
                         <div className="relative">
-                            <input
+                            <Input
                                 className="peer block w-full rounded-md border border-gray-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500"
                                 id="password"
                                 type="password"

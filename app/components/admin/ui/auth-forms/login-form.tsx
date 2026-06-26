@@ -6,6 +6,7 @@ import { useActionState } from 'react';
 import Button from '../../../ui/Button';
 import { authenticate } from '@/app/lib/actions/auth-action';
 import Link from 'next/link';
+import Input from '@/app/components/ui/Input';
 
 export default function LoginForm() {
   // const [showPass, setShowPass] = useState(false);
@@ -32,7 +33,7 @@ export default function LoginForm() {
               Email
             </label>
             <div className="relative">
-              <input
+              <Input
                 className="peer block w-full rounded-md border border-gray-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500"
                 id="email"
                 type="email"
@@ -51,7 +52,7 @@ export default function LoginForm() {
               Password
             </label>
             <div className="relative">
-              <input
+              <Input
                 className="peer block w-full rounded-md border border-gray-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500"
                 id="password"
                 // type={showPass ? "text" : "password"}
@@ -68,7 +69,7 @@ export default function LoginForm() {
               className="mb-3 mt-5 text-xs font-medium mr-10"
             >
               Show Password
-              <input className="ml-5" type="checkbox" onClick={handleShowPass}/>
+              <Input className="ml-5" type="checkbox" onClick={handleShowPass}/>
             </label>
           </div> */}
         </div>
