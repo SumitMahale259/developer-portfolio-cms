@@ -2,6 +2,7 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import clsx from "clsx";
 import { useEffect, useState } from "react";
 import Sidebar from "./Sidebar";
+import Link from "next/link";
 
 export default function MobileSidebar() {
     const [open, setOpen] = useState(false);
@@ -32,9 +33,9 @@ export default function MobileSidebar() {
                 <Bars3Icon className="h-7 w-7" />
                 </button>
 
-                <h1 className="font-semibold">
+                <Link href="/dashboard" className="font-semibold">
                     Dashboard
-                </h1>
+                </Link>
             </header>
 
             {open && (
