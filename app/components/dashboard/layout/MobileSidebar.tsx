@@ -26,6 +26,18 @@ export default function MobileSidebar() {
         return () => window.removeEventListener("scroll", handleScroll);
     }, [lastScrollY]);
 
+    useEffect(() => {
+        if (open) {
+            document.body.style.overflow = "hidden";
+        } else {
+            document.body.style.overflow = "";
+        }
+
+        return () => {
+            document.body.style.overflow = "";
+        };
+    }, [open]);
+
     return (
         <>
             <header className={`fixed top-0 left-0 z-50 w-full bg-white/70 backdrop-blur-lg dark:bg-slate-950/70 flex items-center transition-transform duration-300 ease-in-out justify-between border-b p-4 md:hidden ${showHeader ? "translate-y-0" : "-translate-y-full"}`}>
@@ -47,7 +59,7 @@ export default function MobileSidebar() {
 
             <aside
                 className={clsx(
-                "fixed inset-y-0 left-0 z-50 flex h-vh w-64 flex-col border-r bg-white dark:bg-black transition-transform",
+                "fixed inset-y-0 left-0 z-50 flex h-screen w-64 flex-col border-r bg-white dark:bg-black transition-transform",
                 // "fixed inset-y-0 left-0 z-50 w-64 border-r bg-white p-5 transition-transform dark:bg-black",
                 open
                     ? "translate-x-0"
