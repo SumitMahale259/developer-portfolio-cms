@@ -1,7 +1,7 @@
 "use client";
 
 import { forgotPassword } from "@/app/lib/actions/auth-action";
-import { ArrowRightIcon, AtSymbolIcon, ExclamationCircleIcon } from "@heroicons/react/24/outline";
+import { ArrowRightIcon, AtSymbolIcon } from "@heroicons/react/24/outline";
 import { useActionState } from "react";
 import Button from "../../../ui/Button";
 import Link from "next/link";
@@ -15,7 +15,7 @@ export default function ForgotPasswordForm() {
 
     return (
         <form action={formAction} className="space-y-3">
-            <div className="flex-1 rounded-lg px-6 pb-4 pt-8">
+            <div className="flex-1 rounded-lg">
                 <h1 className={`mb-3 text-2xl`}>
                     Forgot Password
                 </h1>
