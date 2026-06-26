@@ -46,19 +46,23 @@ export default function MobileSidebar() {
 
             <aside
                 className={clsx(
-                "fixed inset-y-0 left-0 z-50 w-64 border-r bg-white p-5 transition-transform dark:bg-black",
+                "fixed inset-y-0 left-0 z-50 flex h-screen w-64 flex-col border-r bg-white dark:bg-black transition-transform",
+                // "fixed inset-y-0 left-0 z-50 w-64 border-r bg-white p-5 transition-transform dark:bg-black",
                 open
                     ? "translate-x-0"
                     : "-translate-x-full",
                 "md:translate-x-0"
                 )}
             >
-                <div className="mb-6 flex justify-end md:hidden">
-                    <button onClick={() => setOpen(false)}>
+                {/* <div className="flex justify-end px-4 pt-4 translate-y-11 md:hidden"> */}
+                {/* <div className="mb-6 flex justify-end md:hidden"> */}
+                    <button onClick={() => setOpen(false)} className="absolute right-4 top-4 md:hidden">
                         <XMarkIcon className="h-6 w-6" />
                     </button>
+                {/* </div> */}
+                <div className="flex-1 overflow-hidden p-4">
+                    <Sidebar onNavigate={() => setOpen(false)}/>
                 </div>
-                <Sidebar onNavigate={() => setOpen(false)}/>
             </aside>
         </>
     )

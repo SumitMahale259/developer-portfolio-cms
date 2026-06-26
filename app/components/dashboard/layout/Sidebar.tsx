@@ -86,7 +86,7 @@ export default function Sidebar({ onNavigate }: SidebarProps) {
         </h1>
       </div>
 
-      <div className="flex flex-1 flex-col gap-1">
+      {/* <div className="flex flex-1 flex-col gap-1">
         {links.map((link) => {
           const Icon = link.icon;
 
@@ -114,7 +114,39 @@ export default function Sidebar({ onNavigate }: SidebarProps) {
         })}
       </div>
 
-      <div className="border-t pt-4 space-y-4">
+      <div className="border-t pt-4 space-y-4"> */}
+      <div className="flex-1 overflow-y-auto pb-4">
+        <div className="flex flex-col gap-1">
+        {/* <div className="flex flex-1 flex-col gap-1"> */}
+          {links.map((link) => {
+            const Icon = link.icon;
+
+            const active =
+              pathname === link.href ||
+              (link.href !== "/dashboard" &&
+                pathname.startsWith(link.href));
+
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                onClick={onNavigate}
+                className={clsx(
+                  "flex items-center gap-3 rounded-lg px-3 py-2 transition-colors",
+                  active
+                    ? "bg-black text-white dark:bg-white dark:text-black"
+                    : "hover:bg-gray-100 dark:hover:bg-slate-900"
+                )}
+              >
+                <Icon className="h-5 w-5" />
+                {link.name}
+              </Link>
+            );
+          })}
+        </div>
+      </div>
+
+      <div className="shrink-0 border-t pt-4 space-y-4">
         <ThemeToggle />
 
         <form action={logout}>

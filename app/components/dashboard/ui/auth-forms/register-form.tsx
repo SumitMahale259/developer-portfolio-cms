@@ -1,7 +1,7 @@
 "use client"
 
 import { registerUser } from "@/app/lib/actions/auth-action";
-import { ArrowRightIcon, AtSymbolIcon, ExclamationCircleIcon, KeyIcon, LockClosedIcon, UserCircleIcon } from "@heroicons/react/24/outline";
+import { ArrowRightIcon, AtSymbolIcon, KeyIcon, LockClosedIcon, UserCircleIcon } from "@heroicons/react/24/outline";
 import Button from "../../../ui/Button";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
