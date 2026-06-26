@@ -1,16 +1,16 @@
-import { DeleteButton, EditButton } from "@/app/components/admin/ui/buttons";
+import { DeleteButton, EditButton } from "@/app/components/dashboard/ui/buttons";
 import Button from "@/app/components/ui/Button";
 import { fetchProjects } from "@/app/lib/data";
 import Image from "next/image";
 import Link from "next/link";
 
-export default async function AdminProjects() {
+export default async function DashboardProjects() {
     const projects = await fetchProjects();
     return (
         <div className="text-center">
-            <p>Admin Projects Page</p>
+            <p>Dashboard Projects Page</p>
             <div className="flex justify-center mt-5">
-                <Link href="/admin/projects/new"><Button className="">Create Project</Button></Link>
+                <Link href="/dashboard/projects/new"><Button className="">Create Project</Button></Link>
             </div>
             <div className="mt-5 mb-5 flex gap-5 items-center justify-center flex-wrap">
                 {projects.map((curProj) =>(

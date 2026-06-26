@@ -70,7 +70,7 @@ export async function createProject(formData: FormData) {
                 },
             }
         });
-        revalidatePath('/admin/projects');
+        revalidatePath('/dashboard/projects');
     } catch (error) {
         console.error(error);
         if (
@@ -90,7 +90,7 @@ export async function createProject(formData: FormData) {
             message: "Database Error: Failed to create project.",
         };
     }
-    redirect('/admin/projects');
+    redirect('/dashboard/projects');
 }
 
 export async function updateProject(id: string, formData: FormData) {
@@ -125,7 +125,7 @@ export async function updateProject(id: string, formData: FormData) {
                     featured,
                 },
             });
-            revalidatePath("/admin/projects");
+            revalidatePath("/dashboard/projects");
         } catch (error) {
             console.error(error);
             if (
@@ -145,7 +145,7 @@ export async function updateProject(id: string, formData: FormData) {
                 message: "Database Error: Failed to update project."
             }
         }
-        redirect('/admin/projects');
+        redirect('/dashboard/projects');
     }
 
     if (image.size > IMAGE_SIZE) {
@@ -201,7 +201,7 @@ export async function updateProject(id: string, formData: FormData) {
                 },
             }
         });
-        revalidatePath("/admin/projects");
+        revalidatePath("/dashboard/projects");
     } catch (error) {
         console.error(error);
         if (
@@ -221,7 +221,7 @@ export async function updateProject(id: string, formData: FormData) {
             message: "Database Error: Failed to update project."
         }
     }
-    redirect('/admin/projects');
+    redirect('/dashboard/projects');
 }
 
 export async function deleteProject(id: string) {
@@ -250,5 +250,5 @@ export async function deleteProject(id: string) {
         console.error(error);
         throw new Error("Database Error: Failed to delete project.");
     }
-    revalidatePath("/admin/projects");
+    revalidatePath("/dashboard/projects");
 }

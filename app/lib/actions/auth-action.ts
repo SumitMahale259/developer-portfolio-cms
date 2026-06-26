@@ -266,5 +266,5 @@ export async function resetPassword(
       message: "Database Error: Failed to reset password.",
     }
   }
-  redirect("/admin/login");
+  redirect("/dashboard/login");
 }

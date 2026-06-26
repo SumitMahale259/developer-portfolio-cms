@@ -45,7 +45,7 @@ export default function RegisterForm() {
         <form className="space-y-3" onSubmit={handleSubmit(onSubmit)}>
             <div className="flex-1 rounded-lg">
                 <h1 className={`mb-3 text-2xl`}>
-                    Admin Registration
+                    Dashboard Registration
                 </h1>
                 <div className="w-full">
                     <div>

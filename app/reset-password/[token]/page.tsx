@@ -1,4 +1,4 @@
-import ResetPasswordForm from "@/app/components/admin/ui/auth-forms/reset-password-form";
+import ResetPasswordForm from "@/app/components/dashboard/ui/auth-forms/reset-password-form";
 import { Suspense } from "react";
 
 export default async function Page(props: { params: Promise<{ token: string }> }) {

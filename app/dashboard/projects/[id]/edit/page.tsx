@@ -1,4 +1,4 @@
-import EditProjectForm from "@/app/components/admin/ui/projects/edit-project-form";
+import EditProjectForm from "@/app/components/dashboard/ui/projects/edit-project-form";
 import { fetchProjectById } from "@/app/lib/data";
 import { notFound } from "next/navigation";
 

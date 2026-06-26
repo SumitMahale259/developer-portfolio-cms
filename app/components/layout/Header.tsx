@@ -32,9 +32,7 @@ export default function Header() {
     const activeIndex = navLinks.findIndex(
       (link) => link.href === pathname
     );
-
     const activeLink = linkRefs.current[activeIndex];
-
     if (activeLink) {
       setIndicator({
         left: activeLink.offsetLeft,
@@ -52,9 +50,7 @@ export default function Header() {
         setIsOpen(false);
       }
     };
-
     document.addEventListener("mousedown", handleClickOutside);
-
     return () => {
       document.removeEventListener(
         "mousedown",
@@ -67,9 +63,7 @@ export default function Header() {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
     };
-
     window.addEventListener("scroll", handleScroll);
-
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
@@ -77,12 +71,9 @@ export default function Header() {
 
   useEffect(() => {
     let lastScrollY = window.scrollY;
-
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
-
       setIsScrolled(currentScrollY > 20);
-
       if (currentScrollY < 100) {
         setShowHeader(true);
       } else if (currentScrollY > lastScrollY) {
@@ -92,7 +83,6 @@ export default function Header() {
         // Scrolling up
         setShowHeader(true);
       }
-
       lastScrollY = currentScrollY;
     };
 
@@ -105,13 +95,15 @@ export default function Header() {
 
   return (
     <header
-      className={`fixed top-0 left-0 z-50 w-full border-b border-gray-200 dark:border-gray-200/20 transition-transform duration-300 ease-in-out ${
-        showHeader ? "translate-y-0" : "-translate-y-full"
-      } ${
-        isScrolled
-          ? "bg-white/70 backdrop-blur-lg dark:bg-slate-950/70"
-          : "bg-transparent"
-      }`}
+      className={`fixed top-0 left-0 z-50 w-full border-b border-gray-200 dark:border-gray-200/20 transition-transform duration-300 ease-in-out 
+        ${
+          showHeader ? "translate-y-0" : "-translate-y-full"
+        } ${
+          isScrolled
+            ? "bg-white/70 backdrop-blur-lg dark:bg-slate-950/70"
+            : "bg-transparent"
+        }`
+      }
     >
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
         {/* Logo */}

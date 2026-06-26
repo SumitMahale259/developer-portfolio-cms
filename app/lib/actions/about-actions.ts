@@ -63,7 +63,7 @@ export async function createBasicInfo(formData: FormData) {
                 }
             }
         });
-        revalidatePath('/admin/about');
+        revalidatePath('/dashboard/about');
         return {
             success: true,
             message: "Basic information created."
@@ -105,7 +105,7 @@ export async function updateBasicInfo(formData: FormData) {
                     roles,
                 },
             });
-            revalidatePath("/admin/about");
+            revalidatePath("/dashboard/about");
             return {
                 success: true,
                 message: "Basic information updated."
@@ -166,7 +166,7 @@ export async function updateBasicInfo(formData: FormData) {
                 }
             }
         });
-        revalidatePath('/admin/about');
+        revalidatePath('/dashboard/about');
         return {
             success: true,
             message: "Basic information updated."

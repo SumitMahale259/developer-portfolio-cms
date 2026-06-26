@@ -1,4 +1,4 @@
-import CreateProjectForm from "@/app/components/admin/ui/projects/create-project-form";
+import CreateProjectForm from "@/app/components/dashboard/ui/projects/create-project-form";
 
 export default function CreateProject() {
     return (

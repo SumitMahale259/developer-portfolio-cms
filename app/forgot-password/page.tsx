@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import ForgotPasswordForm from "../components/admin/ui/auth-forms/forgot-password-form";
+import ForgotPasswordForm from "../components/dashboard/ui/auth-forms/forgot-password-form";
 
 export default function ForgotPassword() {
     return (

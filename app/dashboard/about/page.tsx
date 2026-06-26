@@ -1,14 +1,14 @@
-import AboutForm from "@/app/components/admin/ui/about-form";
-import BasicInfo from "@/app/components/admin/ui/about/basic-info";
-import SectionCard from "@/app/components/admin/ui/section-card";
+import AboutForm from "@/app/components/dashboard/ui/about-form";
+import BasicInfo from "@/app/components/dashboard/ui/about/basic-info";
+import SectionCard from "@/app/components/dashboard/ui/section-card";
 import { fetchBasicInfo } from "@/app/lib/data";
 
-export default async function AdminAbout() {
+export default async function DashboardAbout() {
     const basicInfo = await fetchBasicInfo();
 
     return (
         <div>
-            {/* <p>Admin About Page</p> */}
+            {/* <p>Dashboard About Page</p> */}
             <div className="mx-auto max-w-5xl space-y-8">
                 <h1 className="text-3xl font-bold">
                     About Management

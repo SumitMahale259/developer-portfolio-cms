@@ -5,6 +5,7 @@ import Input from "@/app/components/ui/Input";
 import { Prisma } from "@/app/generated/prisma/client";
 import { createBasicInfo, updateBasicInfo } from "@/app/lib/actions/about-actions";
 import { BasicInfoClientFormInput, BasicInfoClientFormOutput, BasicInfoClientSchema } from "@/app/lib/client-side-validations/basic-info-client-schema";
+import { TrashIcon } from "@heroicons/react/24/outline";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -108,7 +109,7 @@ export default function CreateInfoForm({isEditing, setIsEditing, basicInfo} : Cr
 
     return (
         <form className="space-y-8" onSubmit={handleSubmit(onSubmit)}>
-            <div className="flex items-center gap-4">
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
                 <div className="h-24 w-24 rounded-xl border bg-gray-100">
                     {basicInfo?.profileImg && (
                         <Image
@@ -126,7 +127,7 @@ export default function CreateInfoForm({isEditing, setIsEditing, basicInfo} : Cr
                     </label>
                     {isEditing && (
                         <>
-                            <label htmlFor="profileImg" className="rounded-xl border p-2 w-80">
+                            <label htmlFor="profileImg" className="block rounded-xl border p-2 max-w-sm w-full">
                                 {profileImg?.[0]?.name ||
                                     basicInfo?.profileImg?.imageName ||
                                     "Upload Image"
@@ -154,7 +155,7 @@ export default function CreateInfoForm({isEditing, setIsEditing, basicInfo} : Cr
                 </div>
             </div>
 
-            <div className="flex flex-col space-y-2 w-md">
+            <div className="flex flex-col space-y-2 w-full max-w-sm">
                 <label htmlFor="fullName">Full Name</label>
 
                 <Input
@@ -172,7 +173,7 @@ export default function CreateInfoForm({isEditing, setIsEditing, basicInfo} : Cr
                 </div>
             </div>
 
-            <div className="flex flex-col space-y-2 w-md">
+            <div className="flex flex-col space-y-2 w-full max-w-sm">
                 <label htmlFor="summary">Summary</label>
                 <textarea
                     className="rounded-md border p-2"
@@ -191,8 +192,9 @@ export default function CreateInfoForm({isEditing, setIsEditing, basicInfo} : Cr
                 </div>
             </div>
 
-            <div className="flex flex-col space-y-2 w-md">
-                <div className="flex items-center justify-between">
+            <div className="flex flex-col space-y-6">
+                {/* <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between"> */}
+                <div className="flex flex-wrap items-center gap-3">
                     <div>
                         <label>Roles</label>
                     </div>
@@ -200,6 +202,7 @@ export default function CreateInfoForm({isEditing, setIsEditing, basicInfo} : Cr
                         <Button
                             type="button"
                             onClick={addRole}
+                            className="ml-auto"
                         >
                             + Add Role
                         </Button>
@@ -207,21 +210,26 @@ export default function CreateInfoForm({isEditing, setIsEditing, basicInfo} : Cr
                 </div>
 
                 {roles.map((role, index) => (
-                    <div key={index} className="flex flex-col space-y-2 w-md">
-                        <div className="space-y-3 flex gap-3">
+                    <div key={index}>
+                        {/* <div className="flex flex-col gap-3 sm:flex-row sm:items-start"> */}
+                        <div className="flex gap-3 items-center">
                             <Input
+                                className="max-w-sm w-full flex-1"
                                 disabled={!isEditing}
                                 // defaultValue={role}
                                 {...register(`roles.${index}`)}
                             />
 
                             {isEditing && (
-                            <Button
-                                type="button"
-                                onClick={() => removeRole(index)}
-                            >
-                                Delete
-                            </Button>
+                                <TrashIcon className="w-5" onClick={() => removeRole(index)}/>
+                            // <Button
+                            //     type="button"
+                            //     onClick={() => removeRole(index)}
+                            //     className="self-end"
+                            //     // className="w-full sm:w-auto"
+                            // >
+                            //     Delete
+                            // </Button>
                             )}
                         </div>
                         <div aria-live="polite" aria-atomic="true">

@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import LoginForm from "../components/admin/ui/auth-forms/login-form";
+import LoginForm from "../components/dashboard/ui/auth-forms/login-form";
 
 export default function Login() {
     return (
