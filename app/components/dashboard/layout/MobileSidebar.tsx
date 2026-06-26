@@ -47,7 +47,7 @@ export default function MobileSidebar() {
 
             <aside
                 className={clsx(
-                "fixed inset-y-0 left-0 z-50 flex h-dvh w-64 flex-col border-r bg-white dark:bg-black transition-transform",
+                "fixed inset-y-0 left-0 z-50 flex h-vh w-64 flex-col border-r bg-white dark:bg-black transition-transform",
                 // "fixed inset-y-0 left-0 z-50 w-64 border-r bg-white p-5 transition-transform dark:bg-black",
                 open
                     ? "translate-x-0"
