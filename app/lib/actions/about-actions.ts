@@ -34,34 +34,6 @@ export async function createAbout(formData: FormData) {
     }
 
     const data = validatedFields.data;
-
-    // Image is required on create
-    // const image = formData.get("profileImg");
-
-    // if (!(image instanceof File) || image.size === 0) {
-    //     return {
-    //         success: false,
-    //         message: "Please select an image.",
-    //     };
-    // }
-
-    // if (image.size > IMAGE_SIZE) {
-    //     return {
-    //         success: false,
-    //         message: "Image must be less than 200KB.",
-    //     };
-    // }
-
-    // if (!SUPPORTED_FORMATS_IMAGE.includes(image.type)) {
-    //     return {
-    //         success: false,
-    //         message: "Unsupported image format.",
-    //     };
-    // }
-
-    // const bytes = await image.arrayBuffer();
-    // const buffer = Buffer.from(bytes);
-
     const image = formData.get("profileImg");
     const resume = formData.get("resume");
 
