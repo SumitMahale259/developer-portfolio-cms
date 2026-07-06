@@ -1,11 +1,18 @@
 import Link from "next/link";
 import TypingText from "../TypingText";
-import { fetchBasicInfo } from "@/app/lib/data";
+import { fetchAbout } from "@/app/lib/data";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 
 export default async function HeroSection() {
-    const basicInfo = await fetchBasicInfo();
+    const basicInfo = await fetchAbout({
+        select: {
+            fullName: true,
+            summary: true,
+            roles: true,
+            profileImg: true,
+        }
+    });
     if (!basicInfo) {
         notFound();
     }

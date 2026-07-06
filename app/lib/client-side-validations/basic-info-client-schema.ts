@@ -1,7 +1,7 @@
 "use client";
 
 import * as z from "zod";
-import { BasicInfoSchema } from "../validations/basic-info-schema";
+import { BasicInfoSchema } from "../validations/about-schema";
 
 const IMAGE_SIZE = 200 * 1024;
 const SUPPORTED_FORMATS_IMAGE = [

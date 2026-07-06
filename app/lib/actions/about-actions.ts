@@ -2,180 +2,311 @@
 
 import { revalidatePath } from "next/cache";
 import { prisma } from "../prisma";
-import { BasicInfoSchema } from "../validations/basic-info-schema";
+import { AboutSchema } from "../validations/about-schema";
 import { deleteFromCloudinary, uploadToCloudinary } from "../cloudinary";
+import { Prisma } from "@/app/generated/prisma/client";
+import { formDataToObject } from "../formDataToObject";
 
 const IMAGE_SIZE = 200 * 1024;
+const RESUME_SIZE = 300 * 1024;
 const SUPPORTED_FORMATS_IMAGE = [
   "image/jpeg",
   "image/jpg",
   "image/png",
   "image/webp",
 ];
+const SUPPORTED_FORMATS_RESUME = [
+  "application/pdf",
+];
 
-export async function createBasicInfo(formData: FormData) {
-    const validatedFields = BasicInfoSchema.omit({
-        roles: true
-    }).safeParse({
-        fullName: formData.get("fullName"),
-        summary: formData.get("summary"),
-    });
+export async function createAbout(formData: FormData) {
+    // Convert FormData to an object
+    const rawData = formDataToObject(formData);
+
+    // Validate all fields required for creation
+    const validatedFields = AboutSchema.safeParse(rawData);
 
     if (!validatedFields.success) {
         return {
             success: false,
-            message: "Validation failed."
+            errors: "Validation failed.",
+        };
+    }
+
+    const data = validatedFields.data;
+
+    // Image is required on create
+    // const image = formData.get("profileImg");
+
+    // if (!(image instanceof File) || image.size === 0) {
+    //     return {
+    //         success: false,
+    //         message: "Please select an image.",
+    //     };
+    // }
+
+    // if (image.size > IMAGE_SIZE) {
+    //     return {
+    //         success: false,
+    //         message: "Image must be less than 200KB.",
+    //     };
+    // }
+
+    // if (!SUPPORTED_FORMATS_IMAGE.includes(image.type)) {
+    //     return {
+    //         success: false,
+    //         message: "Unsupported image format.",
+    //     };
+    // }
+
+    // const bytes = await image.arrayBuffer();
+    // const buffer = Buffer.from(bytes);
+
+    const image = formData.get("profileImg");
+    const resume = formData.get("resume");
+
+    let profileImgData: Prisma.ProfileImageCreateWithoutAboutInput | undefined;
+    let resumeData: Prisma.ResumeCreateWithoutAboutInput | undefined;
+
+    if (image instanceof File && image.size > 0) {
+        if (image.size > IMAGE_SIZE) {
+            return {
+                success: false,
+                message: "Image must be less than 200KB.",
+            };
         }
-    }
 
-    const roles = formData.getAll("roles") as string[];
-    const image = formData.get("profileImg") as File | null;
+        if (!SUPPORTED_FORMATS_IMAGE.includes(image.type)) {
+            return {
+                success: false,
+                message: "Unsupported image format.",
+            };
+        }
 
-    if (!image || image.size === 0) {
-        throw new Error("Please select an image");
-    }
+        const bytes = await image.arrayBuffer();
+        const buffer = Buffer.from(bytes);
 
-    if (image.size > IMAGE_SIZE) {
-        throw new Error("Image must be less than 200KB");
-    }
+        const uploaded = await uploadToCloudinary(
+            buffer,
+            "developer-portfolio/about/images"
+        );
 
-    if (!SUPPORTED_FORMATS_IMAGE.includes(image.type)) {
-        throw new Error("Unsupported file format");
-    }
+        profileImgData = {
+            imageUrl: uploaded.fileUrl,
+            cloudinaryPublicId: uploaded.cloudinaryPublicId,
+            imageName: image.name,
+        };
+    };
 
-    const bytes = await image.arrayBuffer();
-    const buffer = Buffer.from(bytes);
+    if (resume instanceof File && resume.size > 0) {
+        if (resume.size > RESUME_SIZE) {
+            return {
+                success: false,
+                message: "Resume must be less than 5MB.",
+            };
+        }
 
-    const { fullName, summary } = validatedFields.data;
+        if (!SUPPORTED_FORMATS_RESUME.includes(resume.type)) {
+            return {
+                success: false,
+                message: "Only PDF resumes are allowed.",
+            };
+        }
+
+        const bytes = await resume.arrayBuffer();
+        const buffer = Buffer.from(bytes);
+
+        const uploaded = await uploadToCloudinary(
+            buffer,
+            "developer-portfolio/about/resumes"
+        );
+
+        resumeData = {
+            resumeUrl: uploaded.fileUrl,
+            resumeCloudinaryPublicId: uploaded.cloudinaryPublicId,
+            resumeName: resume.name,
+        };
+    };
+
     try {
-        const uploaded = await uploadToCloudinary(buffer, "developer-portfolio/about/images");
         await prisma.about.create({
             data: {
-                fullName,
-                summary,
-                roles,
-                profileImg: {
-                    create: {
-                        imageUrl: uploaded.imageUrl,
-                        cloudinaryPublicId: uploaded.cloudinaryPublicId,
-                        imageName: image.name,
-                    }
-                }
-            }
+                ...data,
+                ...(profileImgData && {
+                    profileImg: {
+                        create: profileImgData,
+                    },
+                }),
+                ...(resumeData && {
+                    resume: {
+                        create: resumeData,
+                    },
+                }),
+            },
         });
-        revalidatePath('/dashboard/about');
+
+        revalidatePath("/dashboard/about");
+
         return {
             success: true,
-            message: "Basic information created."
+            message: "About information created successfully.",
         };
     } catch (error) {
         console.error(error);
         return {
             success: false,
-            message: "Database Error: Failed to create basic information."
-        }
+            message: "Database Error: Failed to create about information.",
+        };
     }
 }
 
-export async function updateBasicInfo(formData: FormData) {
-    const validatedFields = BasicInfoSchema.omit({
-        roles: true
-    }).safeParse({
-        fullName: formData.get("fullName"),
-        summary: formData.get("summary"),
+export async function updateAbout(formData: FormData) {
+    const about = await prisma.about.findFirst({
+        include: {
+            profileImg: true,
+            resume: true,
+        },
     });
+
+    if (!about) {
+        throw new Error("About information not found.");
+    }
+
+    // Convert FormData to an object
+    const rawData = formDataToObject(formData);
+
+    // Validate all submitted fields
+    const validatedFields = AboutSchema.partial().safeParse(rawData);
 
     if (!validatedFields.success) {
         return {
             success: false,
-            message: "Validation failed."
-        }
+            errors: "Validation failed.",
+        };
     }
 
-    const roles = formData.getAll("roles") as string[];
-    const image = formData.get("profileImg") as File | null;
+    const data: Prisma.AboutUpdateInput = validatedFields.data;
 
-    const { fullName, summary } = validatedFields.data;
-    if (!image || image.size === 0) {
-        try {
-            await prisma.about.updateMany({
-                data: {
-                    fullName,
-                    summary,
-                    roles,
-                },
-            });
-            revalidatePath("/dashboard/about");
+    // Handle image separately
+    const image = formData.get("profileImg");
+    const resume = formData.get("resume");
+
+    let profileImgData: Prisma.ProfileImageCreateWithoutAboutInput | undefined;
+    let resumeData: Prisma.ResumeCreateWithoutAboutInput | undefined;
+
+    if (image instanceof File && image.size > 0) {
+        if (image.size > IMAGE_SIZE) {
             return {
-                success: true,
-                message: "Basic information updated."
-            }
-        } catch (error) {
-            console.error(error);
+                success: false,
+                message: "Image must be less than 200KB.",
+            };
+        }
+
+        if (!SUPPORTED_FORMATS_IMAGE.includes(image.type)) {
             return {
-                message: "Database Error: Failed to update basic information."
-            }
+                success: false,
+                message: "Unsupported image format.",
+            };
         }
-    }
 
-    if (image.size > IMAGE_SIZE) {
-        throw new Error("Image must be less than 200KB");
-    }
+        const bytes = await image.arrayBuffer();
+        const buffer = Buffer.from(bytes);
 
-    if (!SUPPORTED_FORMATS_IMAGE.includes(image.type)) {
-        throw new Error("Unsupported file format");
-    }
-
-    const about = await prisma.about.findFirst({
-        select: {
-            id: true,
-            profileImg: {
-                select: {
-                    cloudinaryPublicId: true,
-                }
-            }
+        if (about.profileImg?.cloudinaryPublicId) {
+            await deleteFromCloudinary(
+                about.profileImg.cloudinaryPublicId
+            );
         }
-    });
 
-    if (!about) {
-        throw new Error("Basic information not found");
+        const uploaded = await uploadToCloudinary(
+            buffer,
+            "developer-portfolio/about/images"
+        );
+
+        profileImgData  = {
+            imageUrl: uploaded.fileUrl,
+            cloudinaryPublicId: uploaded.cloudinaryPublicId,
+            imageName: image.name,
+        };
+    };
+
+    if (resume instanceof File && resume.size > 0) {
+        if (resume.size > RESUME_SIZE) {
+            return {
+                success: false,
+                message: "Resume must be less than 5MB.",
+            };
+        }
+
+        if (!SUPPORTED_FORMATS_RESUME.includes(resume.type)) {
+            return {
+                success: false,
+                message: "Only PDF resumes are allowed.",
+            };
+        }
+
+        const bytes = await resume.arrayBuffer();
+        const buffer = Buffer.from(bytes);
+
+        if (about.resume?.resumeCloudinaryPublicId) {
+            await deleteFromCloudinary(
+                about.resume.resumeCloudinaryPublicId
+            );
+        }
+
+        const uploaded = await uploadToCloudinary(
+            buffer,
+            "developer-portfolio/about/resumes"
+        );
+
+        resumeData = {
+            resumeUrl: uploaded.fileUrl,
+            resumeCloudinaryPublicId: uploaded.cloudinaryPublicId,
+            resumeName: resume.name,
+        };
+    };
+
+    const updateData: Prisma.AboutUpdateInput = {
+        ...data,
+    };
+
+    if (profileImgData) {
+        updateData.profileImg = about.profileImg
+            ? { update: profileImgData }
+            : { create: profileImgData };
     }
 
-    const bytes = await image.arrayBuffer();
-    const buffer = Buffer.from(bytes);
-    if (about?.profileImg?.cloudinaryPublicId) {
-        await deleteFromCloudinary(about.profileImg.cloudinaryPublicId)
+    if (resumeData) {
+        updateData.resume = about.resume
+            ? { update: resumeData }
+            : { create: resumeData };
+    }
+
+    // Nothing to update
+    if (Object.keys(updateData).length === 0) {
+        return {
+            success: true,
+            message: "No changes detected.",
+        };
     }
 
     try {
-        const uploaded = await uploadToCloudinary(buffer, "developer-portfolio/about/images");
         await prisma.about.update({
             where: {
                 id: about.id,
             },
-            data: {
-                fullName,
-                summary,
-                roles,
-                profileImg: {
-                    update: {
-                        imageUrl: uploaded.imageUrl,
-                        cloudinaryPublicId: uploaded.cloudinaryPublicId,
-                        imageName: image.name,
-                    }
-                }
-            }
+            data: updateData,
         });
-        revalidatePath('/dashboard/about');
+        revalidatePath("/dashboard/about");
         return {
             success: true,
-            message: "Basic information updated."
+            message: "About updated successfully.",
         };
     } catch (error) {
         console.error(error);
         return {
             success: false,
-            message: "Database Error: Failed to update basic information."
-        }
+            message: "Database Error: Failed to update about information.",
+        };
     }
 }

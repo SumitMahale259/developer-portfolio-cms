@@ -7,7 +7,6 @@ export default function SectionCard({
   children,
 }: {
   className?: string
-  title: string;
   children: React.ReactNode;
 }) {
 

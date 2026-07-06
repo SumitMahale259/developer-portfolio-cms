@@ -3,7 +3,7 @@
 import Button from "@/app/components/ui/Button";
 import Input from "@/app/components/ui/Input";
 import { Prisma } from "@/app/generated/prisma/client";
-import { createBasicInfo, updateBasicInfo } from "@/app/lib/actions/about-actions";
+import { createAbout, updateAbout } from "@/app/lib/actions/about-actions";
 import { BasicInfoClientFormInput, BasicInfoClientFormOutput, BasicInfoClientSchema } from "@/app/lib/client-side-validations/basic-info-client-schema";
 import { TrashIcon } from "@heroicons/react/24/outline";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -14,10 +14,10 @@ import { useForm } from "react-hook-form";
 
 type BasicInfo = Prisma.AboutGetPayload<{
     select: {
-        fullName: true;
-        summary: true;
-        roles: true;
-        profileImg: true;
+        fullName: true,
+        summary: true,
+        roles: true,
+        profileImg: true,
     };
 }>
 
@@ -80,11 +80,10 @@ export default function CreateInfoForm({isEditing, setIsEditing, basicInfo} : Cr
 
         try {
             if (basicInfo) {
-                await updateBasicInfo(formData);
+                await updateAbout(formData);
             } else {
-                await createBasicInfo(formData);
+                await createAbout(formData);
             }
-            reset();
             reset({
                 fullName: "",
                 summary: "",
@@ -108,7 +107,7 @@ export default function CreateInfoForm({isEditing, setIsEditing, basicInfo} : Cr
     }, [basicInfo, reset]);
 
     return (
-        <form className="space-y-8" onSubmit={handleSubmit(onSubmit)}>
+        <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
             <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
                 <div className="h-24 w-24 rounded-xl border bg-gray-100">
                     {basicInfo?.profileImg && (
@@ -234,7 +233,7 @@ export default function CreateInfoForm({isEditing, setIsEditing, basicInfo} : Cr
                         </div>
                         <div aria-live="polite" aria-atomic="true">
                             {errors.roles?.[index] && (
-                                <p className="-mt-2 mb-2 text-sm text-red-500">
+                                <p className="mt-2 text-sm text-red-500">
                                     {errors.roles[index]?.message}
                                 </p>
                             )}

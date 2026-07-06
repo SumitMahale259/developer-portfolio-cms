@@ -59,13 +59,13 @@ model About {
 
   bio             String?
 
-  resumeUrl       String?
+  resume          Resume?
 
   github          String?
   linkedin        String?
   email           String?
 
-  experienceYears Int?
+  experienceYears Float?
   projectsCount   Int?
 }
 
@@ -74,6 +74,16 @@ model ProfileImage {
   imageUrl           String
   cloudinaryPublicId String
   imageName          String
+
+  aboutId String @unique
+  about   About @relation(fields: [aboutId], references: [id], onDelete: Cascade)
+}
+
+model Resume {
+  id                 String @id @default(cuid())
+  resumeUrl           String
+  resumeCloudinaryPublicId String
+  resumeName          String
 
   aboutId String @unique
   about   About @relation(fields: [aboutId], references: [id], onDelete: Cascade)

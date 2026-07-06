@@ -1,3 +1,4 @@
+import { Prisma } from "../generated/prisma/client";
 import { prisma } from "./prisma";
 
 export async function fetchProjects() {
@@ -27,23 +28,26 @@ export async function fetchProjectById(id: string) {
         return project;
     } catch (error) {
         console.error("Database error: ", error);
-        throw new Error("Failed to fetch project.")
+        throw new Error("Failed to fetch project.");
     }
 }
 
-export async function fetchBasicInfo() {
-    try {
-        const basicInfo = await prisma.about.findFirst({
-            select: {
-                fullName: true,
-                summary: true,
-                roles: true,
-                profileImg: true,
-            },
-        })
-        return basicInfo;
-    } catch (error) {
-        console.error("Database error: ", error);
-        throw new Error("Failed to fetch basic information.");
-    }
+export async function fetchAbout<T extends Prisma.AboutFindFirstArgs>(
+    args: Prisma.SelectSubset<T, Prisma.AboutFindFirstArgs>
+) {
+    return prisma.about.findFirst(args);
 }
+
+// export async function fetchBasicInfo() {
+//     try {
+//         const about = await prisma.about.findFirst({
+//             include: {
+//                 profileImg: true,
+//             },
+//         });
+//         return about;
+//     } catch (error) {
+//         console.error("Database error: ", error);
+//         throw new Error("Failed to fetch basic information.");
+//     }
+// }

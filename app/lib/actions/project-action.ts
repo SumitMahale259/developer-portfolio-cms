@@ -63,7 +63,7 @@ export async function createProject(formData: FormData) {
                 featured,
                 projectImg: {
                     create: {
-                        imageUrl: uploaded.imageUrl,
+                        imageUrl: uploaded.fileUrl,
                         cloudinaryPublicId: uploaded.cloudinaryPublicId,
                         imageName: image.name,
                     },
@@ -194,7 +194,7 @@ export async function updateProject(id: string, formData: FormData) {
                 featured,
                 projectImg: {
                     update: {
-                        imageUrl: uploaded.imageUrl,
+                        imageUrl: uploaded.fileUrl,
                         cloudinaryPublicId: uploaded.cloudinaryPublicId,
                         imageName: image.name,
                     },

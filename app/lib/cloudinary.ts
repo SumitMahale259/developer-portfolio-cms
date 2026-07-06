@@ -3,7 +3,7 @@ import { v2 as cloudinary } from "cloudinary";
 import "dotenv/config";
 
 type UploadedImage = {
-    imageUrl: string;
+    fileUrl: string;
     cloudinaryPublicId: string;
 };
 
@@ -17,11 +17,13 @@ function uploadToCloudinary(
     buffer: Buffer,
     folder: string,
     existingPublicId?: string,
+    resourceType: "image" | "raw" | "auto" = "auto"
 ): Promise<UploadedImage> {
     return new Promise((resolve, reject) => {
         cloudinary.uploader.upload_stream(
             {
                 folder,
+                resource_type: resourceType,
                 ...(existingPublicId && {
                     public_id: existingPublicId,
                     overwrite: true,
@@ -37,7 +39,7 @@ function uploadToCloudinary(
                     reject(new Error("Cloudinary upload failed"));
                     return;
                 }
-                else resolve({cloudinaryPublicId: result!.public_id, imageUrl: result!.secure_url}!);
+                else resolve({cloudinaryPublicId: result!.public_id, fileUrl: result!.secure_url}!);
             }
         ).end(buffer);
     });

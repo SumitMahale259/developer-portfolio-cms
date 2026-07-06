@@ -1,31 +1,30 @@
 "use client"
 
 import { useState } from "react";
-import CreateInfoForm from "./form/create-info-form";
 import { PencilIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Prisma } from "@/app/generated/prisma/client";
+import CreateLinksForm from "./form/create-links-form";
 
-type BasicInfo = Prisma.AboutGetPayload<{
+type SocialLinks = Prisma.AboutGetPayload<{
     select: {
-        fullName: true,
-        summary: true,
-        roles: true,
-        profileImg: true,
+        github: true;
+        linkedin: true;
+        email: true;
     };
 }>
 
-interface BasicInfoProps {
-    basicInfo: BasicInfo | null,
+interface SocialLinksProps {
+    about: SocialLinks | null,
     editable?: boolean;
 }
 
-export default function BasicInfo({editable = false, basicInfo}: BasicInfoProps) {
+export default function SocialLinks({editable = false, about}: SocialLinksProps) {
     const [isEditing, setIsEditing] = useState(false);
 
     return (
         <div className="space-y-8">
             <div className="mb-6 flex items-center justify-between">
-                <h2 className="text-xl font-semibold">Basic Information</h2>
+                <h2 className="text-xl font-semibold">Bio</h2>
                 {editable && (
                     <button
                         type="button"
@@ -35,7 +34,7 @@ export default function BasicInfo({editable = false, basicInfo}: BasicInfoProps)
                     </button>
                 )}
             </div>
-            <CreateInfoForm isEditing={isEditing} setIsEditing={setIsEditing} basicInfo={basicInfo}/>
+            <CreateLinksForm isEditing={isEditing} setIsEditing={setIsEditing} about={about}/>
         </div>
     )
 }
